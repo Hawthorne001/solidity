@@ -7,4 +7,10 @@ pygments-lexer-solidity>=0.7.0
 sphinx-a4doc>=1.6.0
 
 # Sphinx 2.1.0 is the oldest version that accepts a lexer class in add_lexer()
-sphinx>=2.1.0, <6.0
+sphinx>=3.3.0
+certifi>=2024.7.4 # not directly required, pinned by Snyk to avoid a vulnerability
+idna>=3.7 # not directly required, pinned by Snyk to avoid a vulnerability
+jinja2>=3.1.4 # not directly required, pinned by Snyk to avoid a vulnerability
+pygments>=2.15.0 # not directly required, pinned by Snyk to avoid a vulnerability
+requests>=2.31.0 # not directly required, pinned by Snyk to avoid a vulnerability
+setuptools>=70.0.0 # not directly required, pinned by Snyk to avoid a vulnerability
