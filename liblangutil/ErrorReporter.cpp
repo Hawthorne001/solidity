@@ -190,6 +190,17 @@ void ErrorReporter::parserError(ErrorId _error, SourceLocation const& _location,
 	);
 }
 
+void ErrorReporter::parserError(ErrorId _error, SourceLocation const& _location, SecondarySourceLocation const& _secondaryLocation, std::string const& _description)
+{
+	error(
+		_error,
+		Error::Type::ParserError,
+		_location,
+		_secondaryLocation,
+		_description
+	);
+}
+
 void ErrorReporter::fatalParserError(ErrorId _error, SourceLocation const& _location, std::string const& _description)
 {
 	fatalError(
@@ -260,6 +271,33 @@ void ErrorReporter::docstringParsingError(ErrorId _error, SourceLocation const& 
 		Error::Type::DocstringParsingError,
 		_location,
 		_description
+	);
+}
+
+void ErrorReporter::unimplementedFeatureError(ErrorId _error, SourceLocation const& _location, std::string const& _description)
+{
+	error(
+		_error,
+		Error::Type::UnimplementedFeatureError,
+		_location,
+		_description
+	);
+}
+
+void ErrorReporter::codeGenerationError(ErrorId _error, SourceLocation const& _location, std::string const& _description)
+{
+	error(_error, Error::Type::CodeGenerationError, _location, _description);
+}
+
+void ErrorReporter::codeGenerationError(Error const& _error)
+{
+	solAssert(_error.type() == Error::Type::CodeGenerationError);
+	solAssert(_error.comment(), "Errors must include a message for the user.");
+	solUnimplementedAssert(!_error.secondarySourceLocation(), "Secondary locations not supported yet.");
+	codeGenerationError(
+		_error.errorId(),
+		_error.sourceLocation() ?  *_error.sourceLocation() : SourceLocation{},
+		*_error.comment()
 	);
 }
 
